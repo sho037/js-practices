@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-let arr = [...Array(20).keys()].map((i) => i + 1);
+const arr = [...Array(20).keys()].map((i) => i + 1);
 
 arr.forEach((number) => {
   if (number % 15 === 0) {
