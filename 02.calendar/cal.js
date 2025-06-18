@@ -27,7 +27,6 @@ function main() {
   printCalendarBody(
     specified_date.startOf("M"),
     specified_date.endOf("M"),
-    specified_date.isSame(now, "month"),
     now,
   );
 }
@@ -37,7 +36,7 @@ function printCalendarHeader(month, year) {
   console.log(`日 月 火 水 木 金 土`);
 }
 
-function printCalendarBody(first_date, last_date, is_this_month, now) {
+function printCalendarBody(first_date, last_date, now) {
   for (let i = 0; i < Number(first_date.format("d")); i++) {
     process.stdout.write("   ");
   }
@@ -45,16 +44,7 @@ function printCalendarBody(first_date, last_date, is_this_month, now) {
   for (let i = 1; i <= Number(last_date.format("D")); i++) {
     const current_date = first_date.date(i);
 
-    if (is_this_month) {
-      process.stdout.write(
-        convertDayColor(
-          current_date,
-          now,
-        ) + " ",
-      );
-    } else {
-      process.stdout.write(i.toString().padStart(2, " ") + " ");
-    }
+    process.stdout.write(formatDay(current_date, now) + " ");
 
     if (current_date.format("d") === "6") {
       process.stdout.write("\n");
@@ -65,11 +55,11 @@ function printCalendarBody(first_date, last_date, is_this_month, now) {
   if (last_date.format("d") !== "0") process.stdout.write("\n");
 }
 
-function convertDayColor(date, now) {
+function formatDay(date, now) {
   const day_str = date.date().toString().padStart(2, " ");
-  if (date.date() === now.date()) {
+  if (date.isSame(now, "date")) {
     return `\x1b[7m${day_str}\x1b[0m`;
-  } else {
-    return day_str;
   }
+
+  return day_str;
 }
