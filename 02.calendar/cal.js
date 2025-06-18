@@ -27,8 +27,7 @@ function main() {
   printCalendarBody(
     specified_date.startOf("M"),
     specified_date.endOf("M"),
-    specified_date.format("YYYY") === now.format("YYYY") &&
-      specified_date.format("M") === now.format("M"),
+    specified_date.isSame(now, "month"),
     now,
   );
 }
