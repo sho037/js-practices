@@ -48,9 +48,7 @@ function printCalendarBody(first_date, last_date, is_this_month, now) {
     if (is_this_month) {
       process.stdout.write(
         convertDayColor(
-          current_date.format("YYYY"),
-          current_date.format("M"),
-          i,
+          current_date,
           now,
         ) + " ",
       );
@@ -67,9 +65,8 @@ function printCalendarBody(first_date, last_date, is_this_month, now) {
   if (last_date.format("d") !== "0") process.stdout.write("\n");
 }
 
-function convertDayColor(year, month, day, now) {
-  const date = dayjs(new Date(year, Number(month) - 1, day));
-  const day_str = day.toString().padStart(2, " ");
+function convertDayColor(date, now) {
+  const day_str = date.date().toString().padStart(2, " ");
   if (date.date() === now.date()) {
     return `\x1b[7m${day_str}\x1b[0m`;
   } else {
