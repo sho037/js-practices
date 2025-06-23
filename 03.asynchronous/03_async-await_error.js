@@ -15,11 +15,11 @@ await runSQL(CREATE_BOOKS_TABLE_QUERY);
 try {
   await runSQLWithParams(ERROR_INSERT_BOOK_QUERY, BOOK.title);
 } catch (err) {
-  console.error(err);
+  console.log(err);
 }
 try {
   await getSQL(ERROR_SELECT_BOOK_QUERY, "?");
 } catch (err) {
-  console.error(err);
+  console.log(err);
 }
 await runSQL(DROP_BOOKS_TABLE_QUERY);

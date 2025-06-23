@@ -14,12 +14,12 @@ const BOOK = {
 runSQL(CREATE_BOOKS_TABLE_QUERY).then(() => {
   runSQLWithParams(ERROR_INSERT_BOOK_QUERY, BOOK.title)
     .catch((err) => {
-      console.error(err);
+      console.log(err);
     })
     .finally(() => {
       getSQL(ERROR_SELECT_BOOK_QUERY, "?")
         .catch((err) => {
-          console.error(err);
+          console.log(err);
         })
         .finally(() => {
           runSQL(DROP_BOOKS_TABLE_QUERY);
