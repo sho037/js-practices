@@ -18,7 +18,7 @@ try {
   console.log(err);
 }
 try {
-  await getSQL(ERROR_SELECT_BOOK_QUERY, "?");
+  await getSQL(ERROR_SELECT_BOOK_QUERY, "non_existent_id");
 } catch (err) {
   console.log(err);
 }

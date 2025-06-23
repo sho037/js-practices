@@ -17,7 +17,7 @@ runSQL(CREATE_BOOKS_TABLE_QUERY).then(() => {
       console.log(err);
     })
     .finally(() => {
-      getSQL(ERROR_SELECT_BOOK_QUERY, "?")
+      getSQL(ERROR_SELECT_BOOK_QUERY, "non_existent_id")
         .catch((err) => {
           console.log(err);
         })

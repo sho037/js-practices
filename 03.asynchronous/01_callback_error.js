@@ -17,7 +17,7 @@ const BOOK = {
 db.run(CREATE_BOOKS_TABLE_QUERY, () => {
   db.run(ERROR_INSERT_BOOK_QUERY, [BOOK.title], (err) => {
     console.log(err);
-    db.run(ERROR_SELECT_BOOK_QUERY, ["?"], (err) => {
+    db.run(ERROR_SELECT_BOOK_QUERY, ["non_existent_id"], (err) => {
       console.log(err);
       db.run(DROP_BOOKS_TABLE_QUERY);
     });
