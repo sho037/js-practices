@@ -13,9 +13,9 @@ const BOOK = {
 };
 
 runSQL(CREATE_BOOKS_TABLE_QUERY).then(() => {
-  runSQL(INSERT_BOOK_QUERY, BOOK.title).then(({ statement }) => {
-    console.log(`Increment ID: ${statement.lastID}`);
-    getSQL(SELECT_BOOK_QUERY, statement.lastID).then(({ row }) => {
+  runSQL(INSERT_BOOK_QUERY, BOOK.title).then((result) => {
+    console.log(`Increment ID: ${result.lastID}`);
+    getSQL(SELECT_BOOK_QUERY, result.lastID).then((row) => {
       console.log(`Select Record: ${JSON.stringify(row)}`);
       runSQL(DROP_BOOKS_TABLE_QUERY);
     });

@@ -8,7 +8,7 @@ export function runSQL(sql, params) {
       if (err) {
         reject(err);
       }
-      resolve({ statement: this });
+      resolve(this);
     };
     if (params !== undefined) {
       db.run(sql, params, callback);
@@ -24,7 +24,7 @@ export function getSQL(sql, params) {
       if (err) {
         reject(err);
       }
-      resolve({ statement: this, row });
+      resolve(row);
     });
   });
 }
