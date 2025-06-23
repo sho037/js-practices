@@ -2,21 +2,17 @@ import sqlite3 from "sqlite3";
 
 const db = new sqlite3.Database(":memory:");
 
-export function runSQL(sql) {
+export function runSQL(sql, params) {
   return new Promise((resolve, reject) => {
-    db.run(sql, (err) => {
-      if (err) reject(err);
-      resolve();
-    });
-  });
-}
-
-export function runSQLWithParams(sql, params) {
-  return new Promise((resolve, reject) => {
-    db.run(sql, params, function (err) {
+    const callback = function (err) {
       if (err) reject(err);
       resolve({ statement: this });
-    });
+    };
+    if (params !== undefined) {
+      db.run(sql, params, callback);
+    } else {
+      db.run(sql, callback);
+    }
   });
 }
 

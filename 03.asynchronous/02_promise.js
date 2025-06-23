@@ -5,7 +5,7 @@ import {
   DROP_BOOKS_TABLE_QUERY,
 } from "./query.js";
 
-import { runSQL, runSQLWithParams, getSQL } from "./promise.js";
+import { runSQL, getSQL } from "./promise.js";
 
 const BOOK = {
   title:
@@ -13,7 +13,7 @@ const BOOK = {
 };
 
 runSQL(CREATE_BOOKS_TABLE_QUERY).then(() => {
-  runSQLWithParams(INSERT_BOOK_QUERY, BOOK.title).then(({ statement }) => {
+  runSQL(INSERT_BOOK_QUERY, BOOK.title).then(({ statement }) => {
     console.log(`Increment ID: ${statement.lastID}`);
     getSQL(SELECT_BOOK_QUERY, statement.lastID).then(({ row }) => {
       console.log(`Select Record: ${JSON.stringify(row)}`);

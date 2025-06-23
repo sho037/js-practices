@@ -5,14 +5,14 @@ import {
   DROP_BOOKS_TABLE_QUERY,
 } from "./query.js";
 
-import { runSQL, runSQLWithParams, getSQL } from "./promise.js";
+import { runSQL, getSQL } from "./promise.js";
 
 const BOOK = {
   title: "ゼロからわかるRuby超入門",
 };
 
 runSQL(CREATE_BOOKS_TABLE_QUERY).then(() => {
-  runSQLWithParams(ERROR_INSERT_BOOK_QUERY, BOOK.title)
+  runSQL(ERROR_INSERT_BOOK_QUERY, BOOK.title)
     .catch((err) => {
       console.log(err);
     })
