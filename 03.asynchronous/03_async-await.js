@@ -17,4 +17,5 @@ console.log(`Increment ID: ${response.statement.lastID}`);
 const result = await getSQL(SELECT_BOOK_QUERY, response.statement.lastID);
 process.stdout.write("Select Record: ");
 console.log(result.row);
+console.log(`Select Record: ${result.row}`);
 await runSQL(DROP_BOOKS_TABLE_QUERY);
