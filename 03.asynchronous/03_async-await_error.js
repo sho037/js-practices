@@ -1,3 +1,5 @@
+import sqlite3 from "sqlite3";
+
 import {
   CREATE_BOOKS_TABLE_QUERY,
   ERROR_INSERT_BOOK_QUERY,
@@ -11,15 +13,17 @@ const BOOK = {
   title: "たった1日で基本が身に付く!Go言語超入門",
 };
 
-await runSQL(CREATE_BOOKS_TABLE_QUERY);
+const db = new sqlite3.Database(":memory:");
+
+await runSQL(db, CREATE_BOOKS_TABLE_QUERY);
 try {
-  await runSQL(ERROR_INSERT_BOOK_QUERY, BOOK.title);
+  await runSQL(db, ERROR_INSERT_BOOK_QUERY, BOOK.title);
 } catch (err) {
   console.log(err);
 }
 try {
-  await getSQL(ERROR_SELECT_BOOK_QUERY, "non_existent_id");
+  await getSQL(db, ERROR_SELECT_BOOK_QUERY, "non_existent_id");
 } catch (err) {
   console.log(err);
 }
-await runSQL(DROP_BOOKS_TABLE_QUERY);
+await runSQL(db, DROP_BOOKS_TABLE_QUERY);

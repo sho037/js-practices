@@ -1,3 +1,5 @@
+import sqlite3 from "sqlite3";
+
 import {
   CREATE_BOOKS_TABLE_QUERY,
   INSERT_BOOK_QUERY,
@@ -12,12 +14,14 @@ const BOOK = {
     "体系的に学ぶ 安全なWebアプリケーションの作り方 第2版 脆弱性が生まれる原理と対策の実践",
 };
 
-runSQL(CREATE_BOOKS_TABLE_QUERY).then(() => {
-  runSQL(INSERT_BOOK_QUERY, BOOK.title).then((result) => {
+const db = new sqlite3.Database(":memory:");
+
+runSQL(db, CREATE_BOOKS_TABLE_QUERY).then(() => {
+  runSQL(db, INSERT_BOOK_QUERY, BOOK.title).then((result) => {
     console.log(`Increment ID: ${result.lastID}`);
-    getSQL(SELECT_BOOK_QUERY, result.lastID).then((row) => {
+    getSQL(db, SELECT_BOOK_QUERY, result.lastID).then((row) => {
       console.log(`Select Record: ${JSON.stringify(row)}`);
-      runSQL(DROP_BOOKS_TABLE_QUERY);
+      runSQL(db, DROP_BOOKS_TABLE_QUERY);
     });
   });
 });

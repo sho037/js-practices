@@ -1,3 +1,5 @@
+import sqlite3 from "sqlite3";
+
 import {
   CREATE_BOOKS_TABLE_QUERY,
   INSERT_BOOK_QUERY,
@@ -11,9 +13,11 @@ const BOOK = {
   title: "たった1日で基本が身に付く!Ruby on Rails超入門",
 };
 
-await runSQL(CREATE_BOOKS_TABLE_QUERY);
-const response = await runSQL(INSERT_BOOK_QUERY, BOOK.title);
+const db = new sqlite3.Database(":memory:");
+
+await runSQL(db, CREATE_BOOKS_TABLE_QUERY);
+const response = await runSQL(db, INSERT_BOOK_QUERY, BOOK.title);
 console.log(`Increment ID: ${response.lastID}`);
-const result = await getSQL(SELECT_BOOK_QUERY, response.lastID);
+const result = await getSQL(db, SELECT_BOOK_QUERY, response.lastID);
 console.log(`Select Record: ${JSON.stringify(result)}`);
-await runSQL(DROP_BOOKS_TABLE_QUERY);
+await runSQL(db, DROP_BOOKS_TABLE_QUERY);
