@@ -16,12 +16,15 @@ const BOOK = {
 
 const db = new sqlite3.Database(":memory:");
 
-runSQL(db, CREATE_BOOKS_TABLE_QUERY).then(() => {
-  runSQL(db, INSERT_BOOK_QUERY, BOOK.title).then((result) => {
+runSQL(db, CREATE_BOOKS_TABLE_QUERY)
+  .then(() => {
+    return runSQL(db, INSERT_BOOK_QUERY, BOOK.title);
+  })
+  .then((result) => {
     console.log(`Increment ID: ${result.lastID}`);
-    getSQL(db, SELECT_BOOK_QUERY, result.lastID).then((row) => {
-      console.log(`Select Record: ${JSON.stringify(row)}`);
-      runSQL(db, DROP_BOOKS_TABLE_QUERY);
-    });
+    return getSQL(db, SELECT_BOOK_QUERY, result.lastID);
+  })
+  .then((row) => {
+    console.log(`Select Record: ${JSON.stringify(row)}`);
+    runSQL(db, DROP_BOOKS_TABLE_QUERY);
   });
-});

@@ -15,18 +15,15 @@ const BOOK = {
 
 const db = new sqlite3.Database(":memory:");
 
-runSQL(db, CREATE_BOOKS_TABLE_QUERY).then(() => {
-  runSQL(db, ERROR_INSERT_BOOK_QUERY, BOOK.title)
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      getSQL(db, ERROR_SELECT_BOOK_QUERY, "non_existent_id")
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          runSQL(db, DROP_BOOKS_TABLE_QUERY);
-        });
-    });
-});
+runSQL(db, CREATE_BOOKS_TABLE_QUERY)
+  .then(() => {
+    return runSQL(db, ERROR_INSERT_BOOK_QUERY, BOOK.title);
+  })
+  .catch((err) => {
+    console.log(err);
+    return getSQL(db, ERROR_SELECT_BOOK_QUERY, "non_existent_id");
+  })
+  .catch((err) => {
+    console.log(err);
+    runSQL(db, DROP_BOOKS_TABLE_QUERY);
+  });
