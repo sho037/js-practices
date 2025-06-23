@@ -7,7 +7,7 @@ import {
   DROP_BOOKS_TABLE_QUERY,
 } from "./query.js";
 
-import { runSQL, getSQL } from "./promise.js";
+import { runSQL, getSQL } from "./promise-sql.js";
 
 const BOOK = {
   title:

@@ -7,7 +7,7 @@ import {
   DROP_BOOKS_TABLE_QUERY,
 } from "./query.js";
 
-import { runSQL, getSQL } from "./promise.js";
+import { runSQL, getSQL } from "./promise-sql.js";
 
 const BOOK = {
   title: "たった1日で基本が身に付く!Ruby on Rails超入門",
