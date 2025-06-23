@@ -16,7 +16,7 @@ const BOOK = {
 
 db.run(CREATE_BOOKS_TABLE_QUERY, () => {
   db.run(INSERT_BOOK_QUERY, BOOK.title, function () {
-    console.log("Increment ID: " + this.lastID);
+    console.log(`Increment ID: ${this.lastID}`);
     db.get(SELECT_BOOK_QUERY, this.lastID, function (_, row) {
       process.stdout.write("Select Record: ");
       console.log(row);
