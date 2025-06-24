@@ -19,7 +19,7 @@ await runSQL(db, CREATE_BOOKS_TABLE_QUERY);
 try {
   await runSQL(db, ERROR_INSERT_BOOK_QUERY, BOOK.title);
 } catch (err) {
-  if (err.code === "SQLITE_ERRORa") {
+  if (err.code === "SQLITE_ERROR") {
     console.log(err);
   } else {
     throw err;
