@@ -19,11 +19,19 @@ await runSQL(db, CREATE_BOOKS_TABLE_QUERY);
 try {
   await runSQL(db, ERROR_INSERT_BOOK_QUERY, BOOK.title);
 } catch (err) {
-  console.log(err);
+  if (err.code === "SQLITE_ERRORa") {
+    console.log(err);
+  } else {
+    throw err;
+  }
 }
 try {
   await getSQL(db, ERROR_SELECT_BOOK_QUERY, "non_existent_id");
 } catch (err) {
-  console.log(err);
+  if (err.code === "SQLITE_ERROR") {
+    console.log(err);
+  } else {
+    throw err;
+  }
 }
 await runSQL(db, DROP_BOOKS_TABLE_QUERY);
